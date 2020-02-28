@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.one{
+			width: 400px;
+			height: 400px;
+			background-color: blueviolet;
+			margin: auto;
+			color: white;
+			text-align: center;
+		}
+		.first{
+			width: 400px;
+			height: 500px;
+			background-color: blueviolet;
+			margin: auto;
+			text-align: center;
+			color: white;
+		}
+		.btnDiv{
+			width: 80px;
+			height: 30px;
+			background-color: #00BFFF;
+			text-align: center;
+			line-height: 30px;
+			color: white;
+			margin: auto;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 30px;
+		}
+	</style>
+	<body style="font-family: '微软雅黑';">
+		<div class="one">
+			<h3>请选择需要修改的信息</h3>
+			<div class="first">
+			<form action="EmpServlet?method=add"  method="post">
+			员工编号：<input type="text" name="empNum" id="empNum"/><br /><br />
+			员工姓名：<input type="text"  name="empName" id="empName"/><br /><br />
+			性别：<input id="empSex" type="radio" name="empSex" value="男" checked>男
+			<input  id="empSex" type="radio" name="empSex" value="女">女<br /><br />
+			员工年龄：<input type="text" name="empAge" id="empAge"/><br /><br />
+			员工部门：<input type="text" name="empDept" id="empDept"/><br /><br />
+			</form>
+			<div class="btnDiv">注册</div>
+		</div>
+		</div>
+	</body>
+</html>

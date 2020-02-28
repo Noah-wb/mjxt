@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		.dataStyle{
+			height: 35px;
+			line-height: 35px;
+			background-color: aliceblue;
+			border: 1px solid gray;
+		}
+		.col{
+			width: 200px;
+			float: left;
+			text-align: center;
+		}
+		.col_right{
+			width: 200px;
+			float: left;
+			color: red;
+			text-align: center;
+			border-left: 1px solid gray;
+		}
+		.btn{
+			border:1px solid #00BFFF;
+			color: white;
+			background-color: #00BFFF;
+			text-align: center;
+			cursor: pointer;
+			width:130px;
+			height:30px; 
+			line-height:30px;
+			 
+		}
+	</style>
+	</head>
+	<body style="font-family: '微软雅黑';">
+		<div>
+			<div>
+				<div class="btnDiv" >
+				<div class="second">
+					<select id="group" onchange="inituserData()">
+						<option value="dept01" >dept01</option>
+					</select>
+				</div>
+				</div>
+				
+				<div class="btn">
+					<a href="user_add.html" style="text-decoration: none; color: white;" >增加用户信息</a></div>
+				
+				<div class="btn" style="margin-top:5px;">
+					<a href="face_getlist.html" style="text-decoration: none; color: white;">查询用户注册信息</a></div>
+				</div>
+			</div>
+			<div class="dataStyle" style="margin-top: 20px;">
+					<div class="col" style="font-weight: bolder;">用户ID</div>
+					<div class="col_right" style="color: black;">操作</div>
+			</div>
+			<div id="content">
+			
+			</div>
+		<!--  <div class="dataStyle">
+			<div class="col">用户0001</div>
+			<div class="col_right">删除</div>
+		</div>
+		</div> -->
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+		var defaultGroup="";
+		$(function(){
+			initData();
+		});
+		function initData(){
+			//加载所有的组的信息
+			var url="GroupServlet";
+			/*表示向指定的url位置发送post请求，如果请求的方法有返回值，则自动赋值在匿名函数的data中*/
+			
+			$.post(url,function(data){
+				var obj = eval("("+data+")");
+				var content="";	
+				$.each(obj,function(i,v){
+					content = content + '<option value="'+v+'">'+v+'</option>'
+				});
+				$("#group").html(content);
+				inituserData();
+			});
+		}
+		function inituserData(){
+			var val = $("#group").val();
+			var url="UserServlet";
+			$.post(url,{groupId:val},function(d){
+				var o = eval("("+d+")");
+				var con = "";
+				$.each(o,function(i,v){
+					con = con + '<div class="dataStyle"><div class="col">'+v+'</div><div class="col_right">删除</div></div>'
+				});
+				$("#content").html(con);
+			});
+		}
+		</script>
+</html>

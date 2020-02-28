@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+h5 {
+	color: gray;
+}
+
+div {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#a {
+	text-align: center;
+	background-color: white;
+	width: 300px;
+	height: 300px;
+}
+
+#b {
+	color: gray;
+	float: right;
+	font-size: small;
+}
+
+a {
+	text-decoration: none;
+	color: gray;
+}
+
+.btn {
+	width: 250px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background-color: deepskyblue;
+	cursor: pointer;
+	margin-left: 25px;
+	color: white;
+}
+</style>
+</head>
+<body style="background-image: url(img/backgroundimg2.jpg);font-family: '微软雅黑';">
+	
+	
+	<div id="a">
+		<h3 style="color: darkgray; margin-bottom: 50px;">用户登录</h3>
+		
+		<form action="EmpServlet?method=denglu" method="post">
+			<input type="text" placeholder="用户ID" name="empNum"  style="width: 250px;height: 40px;"/><br />
+			<br /> <input type="text" placeholder="用户姓名" name="empName" style="width: 250px;height: 40px;" /><br />
+			<br />
+			<div class="btn">登录</div>
+		</form>
+		<div id="b">
+			<a href="#">忘记密码</a> <a href="#">忘记会员名</a> <a href="login.html">免费注册</a>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.12.4.js">
+	
+</script>
+<script type="text/javascript">
+	$(function() {
+		/*当整个文档加载完成时 执行这段代码*/
+		$(".btn").click(function() {
+			/*提交form表单 */
+			$("form").submit();
+
+		});
+	});
+</script>
+</html>

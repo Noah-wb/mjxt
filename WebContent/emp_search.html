@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			.btn{
+				border:1px solid #1E90FF;
+				background-color: #1E90FF;
+				color:#ffffff;
+				text-align:center;
+				cursor:pointer;
+				width:80px;
+				height:30px;
+				line-height:30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<form action="EmpSearchServlet" method="post" enctype="multipart/form-data">
+				请选择人脸图片：<input id="myFile" type="file" name="file">
+			</form>
+			<div class="btn">
+				验证
+			</div>
+			</div>
+	</body>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>	
+		<script type="text/javascript">
+		$(function(){
+			
+			$(".btn").click(function(){
+				$("form").submit();
+			});
+		});
+		
+		
+		</script>
+</html>

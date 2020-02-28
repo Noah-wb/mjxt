@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		.btn{
+			border:1px solid #00BFFF;
+			color: white;
+			background-color: #00BFFF;
+			text-align: center;
+			cursor: pointer;
+			width: 80px;
+			height: 50; 
+			margin-left: 250px;
+			 margin-top: 20px;
+			line-height:30px;
+			border-radius: 5px;
+		}
+		</style>
+	</head>
+	<body style="font-family: '微软雅黑';">
+		<div>
+			<div>
+				<div style="background-color: red;width: 400px; height: 300px; margin: 50px auto; margin-bottom: 100px;">
+					<div style="float: left; margin-right: 20px;margin-bottom: 80px;"><a href="group_list.html" style="text-decoration: none; color: white;">返回列表</a></div>
+					请输入组名：<input id="groupId" type="text" style="height: 20px; width: 200px;margin-right:5px;margin-top: 120px;"/>
+					
+					<div class="btn">提交</div>
+				</div>
+				
+			</div>
+						
+		</div>
+		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".btn").click(function(){
+					commit();
+				});
+			});
+			function commit(){
+				var val = $("#groupId").val();
+				
+				var url = "GroupaddServlet";
+				$.post(url,{groupId:val},function(data){
+					var obj = eval("("+data+")");
+					if(obj.error_code == 0){
+						alert("添加成功！");
+					}else{
+						alert(obj.error_msg);
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

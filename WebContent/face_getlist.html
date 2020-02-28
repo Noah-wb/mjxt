@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.first{
+			width: 400px;
+			height: 200px;
+			background-color: blueviolet;
+			margin: auto;
+			
+		}
+		.inDiv{
+			text-align: center;
+			color: white;
+		}
+		.btnDiv{
+			width: 80px;
+			height: 30px;
+			background-color: #00BFFF;
+			text-align: center;
+			line-height: 30px;
+			color: white;
+			margin: auto;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 30px;
+		}
+		.col{
+			width: 400px;
+			float: left;
+			text-align: center;
+			margin-left:100px ;
+		}
+		.col_right{
+			width: 350px;
+			float: left;
+			color: red;
+			text-align: center;
+			
+		}
+	</style>
+	<body style="font-family: '微软雅黑';">
+		<div>
+		<div class="first">
+			<div class="inDiv">
+				<span>请输入用户组ID：</span><input id="groupId" type="text" style="margin-top: 50px;"/><br />
+				<span>请输入用户ID：</span><input id="userId" type="text" style="margin-top: 20px;" />
+			</div>
+			<div class="btnDiv">提交</div>
+			
+			
+		</div>
+		<div class="dataStyle" style="margin-top: 20px;">
+					<div class="col" style="font-weight: bolder;">人脸ID</div>
+					<div class="col_right" style="color: black;">注册时间</div>
+			</div>
+			<div id="content">
+			
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+	<script>
+		$(function(){
+				$(".btnDiv").click(function(){
+					commit();
+				});
+			});
+		function commit(){
+			var var1 = $("#groupId").val();
+			var var2 = $("#userId").val();
+			var url = "FacegetlistServlet";
+			$.post(url,{groupId:var1,userId:var2},function(d){
+				var o = eval("("+d+")");
+				var con = "";
+				$.each(o,function(i,v){
+					con = con + '<div class="dataStyle"><div class="col">'+v.face_token+'</div><div class="col_right">'+v.ctime+'</div></div>'
+				});
+				$("#content").html(con);
+			});
+		}
+	</script>
+</html>

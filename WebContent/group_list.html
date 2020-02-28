@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		.dataStyle{
+			height: 35px;
+			line-height: 35px;
+			background-color: aliceblue;
+			border: 1px solid gray;
+		}
+		.col{
+			width: 200px;
+			float: left;
+			text-align: center;
+		}
+		.col_right{
+			width: 200px;
+			float: left;
+			color: red;
+			text-align: center;
+			border-left: 1px solid gray;
+		}
+		.btn{
+			border:1px solid #00BFFF;
+			color: white;
+			background-color: #00BFFF;
+			text-align: center;
+			cursor: pointer;
+			width:50px; 
+			height:30px; 
+			line-height:30px;
+		}
+	</style>
+	</head>
+	<body style="font-family: '微软雅黑';">
+		<div>
+			<div>
+				<div class="btnDiv" >
+				<div class="btn">
+					<a href="group_add.html" style="text-decoration: none; color: white;">增加</a></div>
+				</div>
+			</div>
+			<div class="dataStyle" style="margin-top: 20px;">
+					<div class="col" style="font-weight: bolder;">组名</div>
+					<div class="col_right" style="color: black;">操作</div>
+			</div>
+			<div id="content">
+			
+			</div>
+		<!-- <div class="dataStyle">
+			<div class="col">组01</div>
+			<div class="col_right">删除</div>
+		</div> -->
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			initData();
+		});
+		function initData(){
+			var url="http://10.0.174.68:8080/web01/GroupServlet";
+			/*表示向指定的url位置发送post请求，如果请求的方法有返回值，则自动赋值在匿名函数的data中*/
+			var content="";	
+			$.post(url,function(data){
+				var obj = eval("("+data+")");
+				$.each(obj,function(i,v){
+					content = content + '<div class="dataStyle"><div class="col">'+v+'</div><div class="col_right"><a href="javascript:void(0)"onclick="deleteGroup(\''+v+'\')">删除</a></div></div>';
+					$("#content").html(content);
+				})
+			});
+		}
+		function deleteGroup(name){
+			var url="GroupDeleteServlet?deptName="+name;
+			$.post(url,function(data){
+				var obj = eval("("+data+")");//将sjon字符串转换为js对象
+				var code = obj.error_code;
+				if(code == 0){
+					alert("恭喜您，删除成功！");
+					initData();
+				}else{
+					alert(obj.error_msg);
+				}
+				
+			});
+		}
+	</script>
+</html>

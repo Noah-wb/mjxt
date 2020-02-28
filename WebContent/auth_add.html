@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			.btn{
+				border:1px solid #1E90FF;
+				background-color: #1E90FF;
+				color:#ffffff;
+				text-align:center;
+				cursor:pointer;
+				width:80px;
+				height:30px;
+				line-height:30px;
+			}
+		
+		</style>
+	</head>
+	<body style="font-family: '微软雅黑';>
+		<div>
+			<div style="background-color:#FFFFFF;width:400px;height:280px;margin:50px auto;text-align:center;">
+				<div style="text-align:right;margin-right:20px;height:100px;padding-top:20px;">
+					<a href="auth_list.html">返回列表</a>
+				</div>
+				<div>
+					请选择员工：
+					<select id="empNum">
+						
+					</select>
+					请选择门禁：
+					<select id="devNum">
+						
+					</select>
+				</div>
+				<div class="btn" style="margin-top: 80px;margin-right:20px;float:right;">提交</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			initEmp();
+			initDev();
+			$(".btn").click(function(){
+				var enmNum = $("#empNum").val();
+				var devNum = $("#devNum").val();
+				
+				var url = "EmpDevServlet?method=add";
+				
+				$.post(url,{empNum:enmNum,devNum:devNum},function(data){
+					var obj = eval("(" + data +")");
+					if(obj.code==0){
+						alert(obj.msg);
+						window.location.href="auth_list.html";
+					}else{
+						alert(obj.msg);
+					}
+				});
+			});
+		});
+		//初始化员工下拉框
+		//初始化门禁下拉框
+		function initEmp(){
+			var url = "EmpServlet?method=list";
+			$.post(url,function(data){
+				var obj = eval("(" + data + ")");
+				var content = "<option >--请选择--</option>"; 
+				$.each(obj,function(i,v){
+					content = content +'<option value="'+v.empNum+'">'+v.empName+'</option>';
+				});
+				$("#empNum").html(content);
+			});
+		}
+		function initDev(){
+			var url = "DeviceServlet?method=list";
+			$.post(url,function(data){
+				var obj = eval("(" + data + ")");
+				var content = "<option >--请选择--</option>"; 
+				$.each(obj,function(i,v){
+					content = content +'<option value="'+v.devNum+'">'+v.devName+'</option>';
+				});
+				$("#devNum").html(content);
+			});
+		}
+	
+	
+	
+	
+	
+	
+	
+	</script>
+</html>

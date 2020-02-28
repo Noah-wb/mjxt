@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.dataStyle{
+height:35px;
+line-height:35px;
+background-color:#FFFFCC;
+border:1px solid gray;
+}
+.col{
+width:100px;
+float:left;
+text-align:center;
+font-weight:bolder;
+}
+.col-right{
+width:150px;
+float:left;
+border-left:1px solid gray;
+text-align:center;
+color:red;
+color:#000000;
+font-weight:bolder;
+}
+.btn{
+margin-bottom:20px;
+border:1px solid #1E90FF;
+background-color:#1E90FF;
+color:#FFFFFF;
+cursor:pointer;
+text-align:center;
+width:80px;
+height:30px;
+line-height:20px;
+}
+</style>
+</head>
+<body style="font-family: '微软雅黑';">
+<div>
+<div class="btndiv">
+<div class="btn"><a href="add.html">+添加</a></div>
+     	</div>
+	<div class="dataStyle">
+     	<div class="col">设备编号</div>
+     	<div class="col">设备名称</div>
+     	<div class="col">设备位置</div>
+     	<div class="col-right">操作</div>
+     	</div>
+     	<div id="content">
+     	<!-- <div class="dataStyle">
+     	<div class="col">1001</div>
+     	<div class="col">设备1号</div>
+     	<div class="col">会议室一</div>
+     	<div class="col-right" >查看|修改|
+     	<a href="javascript:void(0)" onclick="deleteDev">删除</a></div>
+     	</div> -->
+	</div>	
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		initData();
+		
+	});
+	function initData(){
+		var url="DeviceServlet?method=list";
+		$.post(url,function(data){
+			var obj=eval("("+data+")");
+			var str="";
+			$.each(obj,function(i,v){
+				
+				str=str+'<div class="dataStyle"><div class="col">'+v.devNum+'</div><div class="col">'+v.devName+'</div><div class="col">'+v.devDoor+'</div><div class="col-right" >查看|修改|'+'<a href="javascript:void(0)" onclick="deleteDev(\''+v.devNum+'\')"style="text-decoration:none; color: red;">删除</a>'+'</div></div>';
+			});
+			$("#content").html(str);
+		});
+	}
+		function deleteDev(num){
+			var flag=confirm("是否删除此数据？");
+			if(flag){
+			var url="DeviceServlet?method=delete";
+			$.post(url,{devNum:num},function(data){
+				var obj=eval("("+data+")");
+				if(obj.code==0){
+					window.location.href="Device_List.html";
+				}
+				else{
+				alert(obj.msg);	
+				}
+		});
+		}
+	}
+		</script>
+</html>

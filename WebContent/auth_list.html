@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	<style type="text/css">
+			.dataStyle{
+				height:35px;
+				line-height:35px;
+				background-color: #FFFFCC;
+				border:1px solid gray;
+			}
+			.col{
+				width:100px;
+				float:left;
+				border-right:1px solid gray;
+				text-align: center;
+			}
+			.col_right{
+				width:80px;
+				float:left;
+				text-align: center;
+				color:red;
+			}
+			.btn{
+				border:1px solid #1E90FF;
+				background-color: #1E90FF;
+				color:#ffffff;
+				text-align:center;
+				cursor:pointer;
+				width:80px;
+				height:30px;
+				line-height:30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div class="btnDiv">
+				<div class="btn">
+					<a href="auth_add.html">+新增</a>
+				</div>
+			</div>
+		
+			<div class="dataStyle" style="margin-top:20px;">
+				<div class="col" style="font-weight:bolder;">设备编号</div>
+				<div class="col" style="font-weight:bolder;">设备名称</div>
+				<div class="col" style="font-weight:bolder;">设备位置</div>
+				<div class="col" style="font-weight:bolder;">员工编号</div>
+				<div class="col" style="font-weight:bolder;">员工姓名</div>
+				<div class="col_right" style="color:#000000;font-weight:bolder;">操作</div>
+			</div>
+			<div id="content">
+			
+				<div class="dataStyle">
+					<div class="col">100001</div>
+					<div class="col">设备1号</div>
+					<div class="col">会议室一</div>
+					<div class="col">1001</div>
+					<div class="col">zhangsan</div>
+					<div class="col_right">
+						<a href="javascript:void(0)" onclick="deleteAuth('1001','100001')">删除</a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			initData();
+		});
+		
+		function initData(){
+			var url = "EmpDevServlet?method=list";
+			$.post(url,function(data){
+				var obj = eval("(" + data + ")");
+				var str = "";
+				$.each(obj,function(i,v){
+					console.log(v);
+					str = str + '<div class="dataStyle">'+
+						'<div class="col">' + v.dev.devNum + '</div>'+
+						'<div class="col">' + v.dev.devName + '</div>'+
+						'<div class="col">' + v.dev.devDoor + '</div>'+
+						'<div class="col">' + v.emp.empNum + '</div>'+
+						'<div class="col">' + v.emp.empName + '</div>'+
+						'<div class="col_right">'+
+						'<a href="javascript:void(0)" onclick="deleteAuth(\''+v.emp.empNum+'\',\'' + v.dev.devNum + '\')">删除</a>'+
+						'</div></div>';
+				});
+				$("#content").html(str);
+			});
+		}
+		
+		function deleteAuth(empNum,devNum){
+			var flag = confirm("是否确认删除此数据？");
+			if(flag){
+				//请求后台删除指定num的数据
+				var url = "EmpDevServlet?method=delete";
+				$.post(url,{devNum:devNum,empNum:empNum},function(data){
+					var obj = eval("(" + data + ")");
+					if(obj.code == 0){
+						alert(obj.msg);
+						window.location.href = "auth_list.html";
+					}else{
+						alert(obj.msg);
+					}
+				});
+			}
+		}
+	
+	</script>
+	
+</html>

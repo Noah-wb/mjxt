@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.first{
+			width: 400px;
+			height: 500px;
+			background-color: blueviolet;
+			margin: auto;
+			text-align: center;
+			color: white;
+		}
+		.btnDiv{
+			width: 80px;
+			height: 30px;
+			background-color: #00BFFF;
+			text-align: center;
+			line-height: 30px;
+			color: white;
+			margin: auto;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 30px;
+		}
+		
+	</style>
+	<body style="font-family: '微软雅黑';">
+		<div class="first">
+			<h3>员工注册</h3>
+			<form action="EmpServlet?method=add"  method="post">
+			员工编号：<input type="text" name="empNum" id="empNum"/><br /><br />
+			员工姓名：<input type="text"  name="empName" id="empName"/><br /><br />
+			性别：<input id="empSex" type="radio" name="empSex" value="男" checked>男
+			<input  id="empSex" type="radio" name="empSex" value="女">女<br /><br />
+			员工年龄：<input type="text" name="empAge" id="empAge"/><br /><br />
+			员工部门：<input type="text" name="empDept" id="empDept"/><br /><br />
+			</form>
+			<div class="btnDiv">注册</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+				$(".btnDiv").click(function(){
+					$("form").submit();
+				});
+			});
+		
+	</script>
+</html>

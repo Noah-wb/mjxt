@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.btnDiv{
+			width: 80px;
+			height: 30px;
+			background-color: #00BFFF;
+			text-align: center;
+			line-height: 30px;
+			color: white;
+			margin-left: 150px;
+			margin-top: 30px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.first{
+			width: 400px; 
+			height: 250px;
+			margin: auto;
+			background-image: url(img/backgroundimg1.png);
+			background-size: 100%; 
+			text-align: center;
+		}
+	</style>
+	<body style="font-family: '微软雅黑';">
+		<div class="first">
+			<form action="UserAddServlet" method="post" enctype="multipart/form-data">
+				<span>请选择用户组：</span>
+			<select id="group" name="groupId" style="margin-top: 50px;height: 20px; width: 100px;">
+						<option value="dept01" >dept01</option>
+			</select><br /><br />
+			<span>请输入用户ID：</span><select id="userId" name="userId" style="margin-top: 50px;height: 20px; width: 100px;">
+						<option value="dept01" >dept01</option></select>
+			<br  /><br />
+			<span>请选择人脸图片</span><input type="file"  name="file"/>
+			</form>
+			<div class="btnDiv">提交</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			initData();
+			inituserId();
+			$(".btnDiv").click(function(){
+				$("form").submit();
+			});
+			
+		});
+		function initimg(){
+			var val = $("#myFile").val();
+			
+			$("#myImg").attr("src",val);
+		}
+		function initData(){
+			//加载所有的组的信息
+			var url="GroupServlet";
+			/*表示向指定的url位置发送post请求，如果请求的方法有返回值，则自动赋值在匿名函数的data中*/
+			
+			$.post(url,function(data){
+				var obj = eval("("+data+")");
+				var content="";	
+				$.each(obj,function(i,v){
+					content = content + '<option value="'+v+'">'+v+'</option>'
+				});
+				$("#group").html(content);
+				
+			});
+		}
+		function inituserId(){
+			var url = "EmpServlet?method=list";
+			$.post(url,function(data){
+				var obj = eval("(" + data + ")");
+				var content = "<option >--请选择--</option>"; 
+				$.each(obj,function(i,v){
+					content = content +'<option value="'+v.empNum+'">'+v.empName+'</option>';
+				});
+				$("#userId").html(content);
+			});
+		}
+		</script>
+</html>

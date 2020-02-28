@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*div:hover{
+				background-color:blueviolet;
+			}*/
+			.first{
+				padding-left: 15px;
+				 font-size: 16px;
+				 height: 25px;
+				 line-height: 25px;
+				 border: 1px solid gray;
+				 color: #FFFFFF;
+				 cursor: pointer;
+			}
+			.first:hover{
+				background-color: darkred;
+			}
+			.second{
+				height: 25px;
+				line-height: 25px;
+				border-bottom: 1px solid gray;
+				padding-left: 30px; 
+				color: #FFFFFF;
+				cursor: pointer;
+			}
+			.second:hover{
+				background-color: darkred;
+			}
+			.menu{
+				color: #FFFFFF;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body style="font-family: '微软雅黑';">
+		<a name="top"></a>
+		<div style="background-color:#003333;width: 800px;height: 600px;margin-left:0px;">
+			
+			<div style="width: 150px;height: 500px;float: left;">
+				
+				<div style="width: 150px;height: 100px;">
+					logo
+				</div>
+				<div class="first">
+					一级菜单
+				</div>
+				<div class="secondDiv" style="font-size: 14px;">
+					<div class="second">
+					<a href="group_list.html" target="myFrame" class="menu">用户组管理</a>
+					</div>
+					<div class="second">
+					<a href="face_list.html" target="myFrame" class="menu">人脸管理</a>
+					</div>
+					<div class="second">
+					<a href="emp_list.html" target="myFrame" class="menu">员工管理</a>
+					</div>
+					<div class="second">
+					<a href="Device_List.html" target="myFrame" class="menu">设备管理</a>
+					</div>
+					<div class="second">
+					<a href="auth_list.html" target="myFrame" class="menu">授权管理</a>
+					</div>
+					<div class="second">
+					<a href="emp_search.html" target="myFrame" class="menu">人脸匹配</a>
+					</div>
+				</div>
+				
+			</div>
+			<div style="width: 650px;height: 500px;float: left;">
+				<div style="background-color:blueviolet;width: 1000px;height: 100px;">
+					上部div
+					
+				</div>
+				<div style="background-color:white;width: 1000px;height: 500px;">
+					<iframe name="myFrame" src="" style="width: inherit; height: inherit; border: 0px;"></iframe>
+				</div>
+			</div>
+		</div>
+		<div style="width:50px;height: 50px;background-color:blueviolet;position: fixed;bottom:5px;right: 5px;">
+			<a href="#top">返回顶部</a>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+	<script>
+		$(".first").click(function(){
+			$(".second").toggle();
+		});
+		$(".second").click(function(){
+			$(".second").css("backgroundColor","");
+			$(this).css("backgroundColor","darkred");
+		})
+		/*$(".first").click(function(){
+			var state = $(".secondDiv").css("display");//获取元素的显示状态
+			if(state == "block"){
+				$(".secondDiv").hide();
+			}else{
+				$(".secondDiv").show();
+			}
+		});*/
+		
+	</script>
+</html>

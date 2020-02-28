@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.dataStyle{
+			height: 35px;
+			line-height: 35px;
+			background-color: aliceblue;
+			border: 1px solid gray;
+		}
+		.col{
+			width: 100px;
+			float: left;
+			text-align: center;
+		}
+		.col_right{
+			width: 200px;
+			float: left;
+			color: red;
+			text-align: center;
+			
+		}
+		</style>
+	</head>
+	<body style="font-family: '微软雅黑';">
+		<div>
+			<div class="dataStyle" style="margin-top: 20px;">
+				<div class="col" style="font-weight: bolder;">员工编号</div>
+				<div class="col" style="font-weight: bolder;">员工姓名</div>
+				<div class="col" style="font-weight: bolder;">员工性别</div>
+				<div class="col_right" style="color: black;border-left: 1px solid gray;">操作</div>
+			</div>
+			<div id="content">
+				<!-- <div class="col">1001</div>
+				<div class="col">王五</div>
+				<div class="col">男</div>
+				<div class="col_right" style="">查看 | 修改 | 删除</div>
+				
+				<div class="col">0001</div>
+				<div class="col">周薪</div>
+				<div class="col">男</div>
+				<div class="col_right">
+					查看 | 修改 | 
+					<a href="javascript:void(0)" onclick="deletemp('0001')"> 删除 </a> 
+				</div>  -->
+				
+			</div>
+			
+			
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" >
+			$(function(){
+				initData();
+			});
+			function initData(){
+				
+				var url="EmpServlet?method=list";
+				$.post(url,function(data){
+					var con = "";
+					if(data.length > 0){
+						var obj = eval("("+data+")");
+						$.each(obj,function(i,v){
+							con = con + '<div class="col">' + v.empNum + '</div><div class="col">' + v.empName 
+							+ '</div><div class="col">' + v.empSex +
+							'</div><a href="user_update.html" style="color: red; text-decoration: none;">修改</a> |<span  style="color: red;">查看</span> | '
+							+'<a href="javascript:void(0)" onclick="deletemp(\''+ v.empNum +'\')"style="text-decoration:none; color: red;"> 删除 </a> </div><br/>';
+						});
+						$("#content").html(con);
+					}
+				});
+			}
+			function deletemp(num){
+				var flag = confirm("是否确定删除？");
+				if(flag){
+					var url="EmpServlet?method=delete";
+					$.post(url,{empNum:num},function(data){
+						var con = "";
+						var obj = eval("("+data+")");
+						if(obj.code == 0){
+							window.location.href="emp_list.html";
+						}else{
+							alert(obj.msg);
+						}
+					});
+				}
+			}	
+			/* function serletemp(num){
+				var url="EmpServlet?method=emp";
+				$.post(url,function(data)
+						{
+					var con = "";
+					if(data.length > 0)
+					{
+						var obj = eval("("+data+")");
+						$.each(obj,{empNum:num},function(i,v){
+							con = con + '<div class="col">' + v.empNum + 
+							'</div><div class="col">' + v.empName
+							+ '</div><div class="col">' + v.empAge +
+							'</div><div class="col">' + v.empSex +
+							'</div><div class="col">' + v.empDept +
+							'</div><br/>';
+						});
+						$("#content").html(con);
+					};
+			});
+			} */
+	</script>
+</html>
